@@ -1,0 +1,16 @@
+# Rebuild outputs / scratch
+/native-out
+native-modules.lock
+*.node
+SHA256SUMS
+
+# npm cruft (the pinned package-lock.json IS committed)
+node_modules/
+
+# Editor / OS cruft
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+.DS_Store

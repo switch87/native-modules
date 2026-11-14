@@ -23,12 +23,12 @@ on:
         description: "Electron version to target"
         required: false
         type: string
-        default: "44.7.2"
+        default: "42.3.0"
       electron_abi:
-        description: "NODE_MODULE_VERSION of that Electron (44 -> 149)"
+        description: "NODE_MODULE_VERSION of that Electron (42 -> 146, 44 -> 149)"
         required: false
         type: string
-        default: "149"
+        default: "146"
       release_tag:
         description: "Release tag to publish assets to (e.g. native-v1)"
         required: false
@@ -51,8 +51,8 @@ permissions:
 
 env:
   NODE_VERSION: "22.22.0"
-  ELECTRON_VERSION: ${{ inputs.electron_version || '44.7.2' }}
-  ELECTRON_ABI: ${{ inputs.electron_abi || '149' }}
+  ELECTRON_VERSION: ${{ inputs.electron_version || '42.3.0' }}
+  ELECTRON_ABI: ${{ inputs.electron_abi || '146' }}
 
 jobs:
   #=============================================================================

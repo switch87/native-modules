@@ -13,7 +13,7 @@ Clean-room Linux rebuild of the two native sqlite addons Wispr Flow ships only a
 - `sqlite3` — plain sqlite
 
 On Linux they must be rebuilt against the target Electron's V8 / Node ABI
-(Electron 44.7.2: V8 15.2 / Node 24, ABI 149).
+(default Electron 42.3.0: V8 14.8 / Node 24, ABI 146; Electron 44.7.2 is ABI 149).
 `better-sqlite3-multiple-ciphers` does **not** compile against V8 14.8 or newer unpatched;
 the clean-room patch in [`scripts/patches/`](scripts/patches/) is applied to a
 pristine public-npm checkout. **No Wispr Flow code is involved** — these are
@@ -26,8 +26,8 @@ rebuilt entirely from public npm + the in-repo V8 patch, mirroring the
 |---|---|
 | `scripts/rebuild-native-modules.sh` | The single source of rebuild truth (deterministic, lockfile-pinned). |
 | `scripts/native-modules/` | Pinned `package.json` / `package-lock.json` + the Electron smoke test. |
-| `scripts/patches/v8-14.8-better-sqlite3-multiple-ciphers.patch` | The V8 ABI patch (written for 14.8, still applies on 15.2). |
-| `.github/workflows/build-native-modules.yml` | build (old glibc) → validate (real Electron 44) → publish to a `native-v*` release. |
+| `scripts/patches/v8-14.8-better-sqlite3-multiple-ciphers.patch` | The V8 ABI patch (written for 14.8, also applies on 15.2 / Electron 44). |
+| `.github/workflows/build-native-modules.yml` | build (old glibc) → validate (the real target Electron) → publish to a `native-v*` release. |
 
 ## Releases
 
@@ -40,7 +40,7 @@ SHA256SUMS                   (over all .node)
 ```
 
 Built on **glibc 2.28** (`manylinux_2_28`) so the addons load on older-but-still-
-supported distros, and validated by loading each `.node` under real Electron 44
+supported distros, and validated by loading each `.node` under the real target Electron
 plus an encrypted-DB round-trip + wrong-key smoke test.
 
 ## Consumed by

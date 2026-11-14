@@ -8,7 +8,7 @@
 #   better-sqlite3-multiple-ciphers   (encrypted SQLCipher DB engine)
 #   sqlite3                            (plain sqlite)
 # On Linux they must be rebuilt against the target Electron's V8 / Node ABI
-# (Electron 44: V8 15.2 / Node 24, ABI 149).
+# (default Electron 42: V8 14.8 / Node 24, ABI 146; Electron 44 is ABI 149).
 # better-sqlite3-multiple-ciphers does NOT compile against V8 14.8+ unpatched;
 # the clean-room patch in scripts/patches/ is applied to a pristine checkout.
 #
@@ -27,8 +27,8 @@
 #   <arch>      x86_64 | aarch64 | amd64 | arm64 | x64
 #   out_dir     where the verified .node + checksums + lock are written
 # Env:
-#   ELECTRON_VERSION   electron to target          (default: 44.7.2)
-#   ELECTRON_ABI       its NODE_MODULE_VERSION     (default: 149)
+#   ELECTRON_VERSION   electron to target          (default: 42.3.0)
+#   ELECTRON_ABI       its NODE_MODULE_VERSION     (default: 146)
 #   ELECTRON_BIN       electron binary for the runtime ABI assertion (optional
 #                      but STRONGLY recommended; without it the ABI check is
 #                      skipped and a wrong-ABI build could slip through)
@@ -45,9 +45,9 @@ readonly SQLITE_VERSION='5.1.7'      # sqlite3
 readonly REBUILD_VERSION='4.0.4'     # @electron/rebuild
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-electron_version="${ELECTRON_VERSION:-44.7.2}"
+electron_version="${ELECTRON_VERSION:-42.3.0}"
 # NODE_MODULE_VERSION of that Electron (44 -> 149, 42 -> 146)
-readonly ELECTRON_ABI="${ELECTRON_ABI:-149}"
+readonly ELECTRON_ABI="${ELECTRON_ABI:-146}"
 patch_file="$script_dir/patches/v8-14.8-better-sqlite3-multiple-ciphers.patch"
 pinned_dir="$script_dir/native-modules"
 
